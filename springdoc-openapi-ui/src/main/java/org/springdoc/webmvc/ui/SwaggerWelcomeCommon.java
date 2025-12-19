@@ -98,7 +98,12 @@ public abstract class SwaggerWelcomeCommon extends AbstractSwaggerWelcome {
 	 */
 	void buildFromCurrentContextPath(HttpServletRequest request) {
 		super.init();
-		contextPath = request.getContextPath();
-		buildConfigUrl(ServletUriComponentsBuilder.fromCurrentContextPath());
+        contextPath = request.getContextPath();
+        String servletPath = request.getServletPath();
+        // Include servlet path if present (e.g., when using ServletRegistrationBean)
+        if (StringUtils.isNotBlank(servletPath) && !"/".equals(servletPath)) {
+            contextPath += servletPath;
+        }
+        buildConfigUrl(ServletUriComponentsBuilder.fromCurrentServletMapping());
 	}
 }
