@@ -48,6 +48,7 @@ import org.springdoc.core.converters.PropertyCustomizingConverter;
 import org.springdoc.core.converters.ResponseSupportConverter;
 import org.springdoc.core.converters.SchemaPropertyDeprecatingConverter;
 import org.springdoc.core.converters.SortOpenAPIConverter;
+import org.springdoc.core.converters.StaticInnerClassModelConverter;
 import org.springdoc.core.converters.WebFluxSupportConverter;
 import org.springdoc.core.customizers.ActuatorOpenApiCustomizer;
 import org.springdoc.core.customizers.ActuatorOperationCustomizer;
@@ -183,6 +184,19 @@ public class SpringDocConfiguration {
 	@Lazy(false)
 	AdditionalModelsConverter additionalModelsConverter(ObjectMapperProvider objectMapperProvider) {
 		return new AdditionalModelsConverter(objectMapperProvider);
+	}
+
+	/**
+	 * Static inner class model converter static inner class model converter.
+	 *
+	 * @param objectMapperProvider the object mapper provider
+	 * @return the static inner class model converter
+	 */
+	@Bean
+	@ConditionalOnMissingBean
+	@Lazy(false)
+	StaticInnerClassModelConverter staticInnerClassModelConverter(ObjectMapperProvider objectMapperProvider) {
+		return new StaticInnerClassModelConverter(objectMapperProvider);
 	}
 
 	/**
